@@ -89,6 +89,7 @@ func APIKeyFromService(k *service.APIKey) *APIKey {
 		IPWhitelist:        k.IPWhitelist,
 		IPBlacklist:        k.IPBlacklist,
 		LastUsedAt:         k.LastUsedAt,
+		LastUsedIP:         k.LastUsedIP,
 		Quota:              k.Quota,
 		QuotaUsed:          k.QuotaUsed,
 		ExpiresAt:          k.ExpiresAt,
@@ -186,6 +187,8 @@ func groupFromServiceBase(g *service.Group) Group {
 		ImageRateMultiplier:             g.ImageRateMultiplier,
 		BatchImageDiscountMultiplier:    g.BatchImageDiscountMultiplier,
 		BatchImageHoldMultiplier:        g.BatchImageHoldMultiplier,
+		VideoRateIndependent:            g.VideoRateIndependent,
+		VideoRateMultiplier:             g.VideoRateMultiplier,
 		PeakRateEnabled:                 g.PeakRateEnabled,
 		PeakStart:                       g.PeakStart,
 		PeakEnd:                         g.PeakEnd,
@@ -193,6 +196,10 @@ func groupFromServiceBase(g *service.Group) Group {
 		ImagePrice1K:                    g.ImagePrice1K,
 		ImagePrice2K:                    g.ImagePrice2K,
 		ImagePrice4K:                    g.ImagePrice4K,
+		VideoPrice480P:                  g.VideoPrice480P,
+		VideoPrice720P:                  g.VideoPrice720P,
+		VideoPrice1080P:                 g.VideoPrice1080P,
+		WebSearchPricePerCall:           g.WebSearchPricePerCall,
 		ClaudeCodeOnly:                  g.ClaudeCodeOnly,
 		FallbackGroupID:                 g.FallbackGroupID,
 		FallbackGroupIDOnInvalidRequest: g.FallbackGroupIDOnInvalidRequest,
@@ -200,6 +207,8 @@ func groupFromServiceBase(g *service.Group) Group {
 		RequireOAuthOnly:                g.RequireOAuthOnly,
 		RequirePrivacySet:               g.RequirePrivacySet,
 		RPMLimit:                        g.RPMLimit,
+		MaxReasoningEffort:              g.MaxReasoningEffort,
+		ReasoningEffortMappings:         g.ReasoningEffortMappings,
 		CreatedAt:                       g.CreatedAt,
 		UpdatedAt:                       g.UpdatedAt,
 	}
@@ -210,6 +219,11 @@ func AccountFromServiceShallow(a *service.Account) *Account {
 		return nil
 	}
 	redactedCreds, credsStatus := RedactCredentials(a.Credentials)
+	extra := redactAccountManagedExtra(a.Extra)
+	var ollamaCloudUsage *service.OllamaCloudUsageState
+	if state := service.OllamaCloudUsageStateFromAccount(a); state.Eligible {
+		ollamaCloudUsage = state
+	}
 	out := &Account{
 		ID:                      a.ID,
 		Name:                    a.Name,
@@ -218,7 +232,8 @@ func AccountFromServiceShallow(a *service.Account) *Account {
 		Type:                    a.Type,
 		Credentials:             redactedCreds,
 		CredentialsStatus:       credsStatus,
-		Extra:                   a.Extra,
+		Extra:                   extra,
+		OllamaCloudUsage:        ollamaCloudUsage,
 		ProxyID:                 a.ProxyID,
 		ProxyFallbackOriginID:   a.ProxyFallbackOriginID,
 		ProxyFallbackOriginName: a.ProxyFallbackOriginName,
@@ -374,6 +389,24 @@ func AccountFromServiceShallow(a *service.Account) *Account {
 	}
 
 	return out
+}
+
+func redactAccountManagedExtra(extra map[string]any) map[string]any {
+	if extra == nil {
+		return nil
+	}
+	redacted := make(map[string]any, len(extra))
+	for key, value := range extra {
+		switch key {
+		case service.OllamaCloudUsageSessionExtraKey,
+			service.OllamaCloudUsageAutoRefreshExtraKey,
+			service.OllamaCloudUsageSnapshotExtraKey:
+			continue
+		default:
+			redacted[key] = value
+		}
+	}
+	return redacted
 }
 
 func AccountFromService(a *service.Account) *Account {
@@ -592,54 +625,57 @@ func usageLogFromServiceUser(l *service.UsageLog) UsageLog {
 		requestedModel = l.Model
 	}
 	return UsageLog{
-		ID:                    l.ID,
-		UserID:                l.UserID,
-		APIKeyID:              l.APIKeyID,
-		AccountID:             l.AccountID,
-		RequestID:             l.RequestID,
-		Model:                 requestedModel,
-		ServiceTier:           l.ServiceTier,
-		ReasoningEffort:       l.ReasoningEffort,
-		InboundEndpoint:       l.InboundEndpoint,
-		GroupID:               l.GroupID,
-		SubscriptionID:        l.SubscriptionID,
-		InputTokens:           l.InputTokens,
-		OutputTokens:          l.OutputTokens,
-		CacheCreationTokens:   l.CacheCreationTokens,
-		CacheReadTokens:       l.CacheReadTokens,
-		CacheCreation5mTokens: l.CacheCreation5mTokens,
-		CacheCreation1hTokens: l.CacheCreation1hTokens,
-		InputCost:             l.InputCost,
-		OutputCost:            l.OutputCost,
-		CacheCreationCost:     l.CacheCreationCost,
-		CacheReadCost:         l.CacheReadCost,
-		TotalCost:             l.TotalCost,
-		ActualCost:            l.ActualCost,
-		RateMultiplier:        l.RateMultiplier,
-		BillingType:           l.BillingType,
-		RequestType:           requestType.String(),
-		Stream:                stream,
-		OpenAIWSMode:          openAIWSMode,
-		DurationMs:            l.DurationMs,
-		FirstTokenMs:          l.FirstTokenMs,
-		ImageCount:            l.ImageCount,
-		ImageSize:             l.ImageSize,
-		ImageInputSize:        l.ImageInputSize,
-		ImageOutputSize:       l.ImageOutputSize,
-		ImageOutputTokens:     l.ImageOutputTokens,
-		ImageOutputCost:       l.ImageOutputCost,
-		ImageSizeSource:       l.ImageSizeSource,
-		ImageSizeBreakdown:    l.ImageSizeBreakdown,
-		MediaType:             l.MediaType,
-		UserAgent:             l.UserAgent,
-		IPAddress:             l.IPAddress,
-		CacheTTLOverridden:    l.CacheTTLOverridden,
-		BillingMode:           l.BillingMode,
-		CreatedAt:             l.CreatedAt,
-		User:                  UserFromServiceShallow(l.User),
-		APIKey:                APIKeyFromService(l.APIKey),
-		Group:                 GroupFromServiceShallow(l.Group),
-		Subscription:          UserSubscriptionFromService(l.Subscription),
+		ID:                        l.ID,
+		UserID:                    l.UserID,
+		APIKeyID:                  l.APIKeyID,
+		AccountID:                 l.AccountID,
+		RequestID:                 l.RequestID,
+		Model:                     requestedModel,
+		ServiceTier:               l.ServiceTier,
+		ReasoningEffort:           l.ReasoningEffort,
+		InboundEndpoint:           l.InboundEndpoint,
+		GroupID:                   l.GroupID,
+		SubscriptionID:            l.SubscriptionID,
+		InputTokens:               l.InputTokens,
+		OutputTokens:              l.OutputTokens,
+		CacheCreationTokens:       l.CacheCreationTokens,
+		CacheReadTokens:           l.CacheReadTokens,
+		CacheCreation5mTokens:     l.CacheCreation5mTokens,
+		CacheCreation1hTokens:     l.CacheCreation1hTokens,
+		InputCost:                 l.InputCost,
+		OutputCost:                l.OutputCost,
+		CacheCreationCost:         l.CacheCreationCost,
+		CacheReadCost:             l.CacheReadCost,
+		TotalCost:                 l.TotalCost,
+		ActualCost:                l.ActualCost,
+		RateMultiplier:            l.RateMultiplier,
+		LongContextBillingApplied: l.LongContextBillingApplied,
+		BillingType:               l.BillingType,
+		RequestType:               requestType.String(),
+		Stream:                    stream,
+		OpenAIWSMode:              openAIWSMode,
+		DurationMs:                l.DurationMs,
+		FirstTokenMs:              l.FirstTokenMs,
+		ImageCount:                l.ImageCount,
+		ImageSize:                 l.ImageSize,
+		ImageInputSize:            l.ImageInputSize,
+		ImageOutputSize:           l.ImageOutputSize,
+		ImageInputTokens:          l.ImageInputTokens,
+		ImageInputCost:            l.ImageInputCost,
+		ImageOutputTokens:         l.ImageOutputTokens,
+		ImageOutputCost:           l.ImageOutputCost,
+		ImageSizeSource:           l.ImageSizeSource,
+		ImageSizeBreakdown:        l.ImageSizeBreakdown,
+		MediaType:                 l.MediaType,
+		UserAgent:                 l.UserAgent,
+		IPAddress:                 l.IPAddress,
+		CacheTTLOverridden:        l.CacheTTLOverridden,
+		BillingMode:               l.BillingMode,
+		CreatedAt:                 l.CreatedAt,
+		User:                      UserFromServiceShallow(l.User),
+		APIKey:                    APIKeyFromService(l.APIKey),
+		Group:                     GroupFromServiceShallow(l.Group),
+		Subscription:              UserSubscriptionFromService(l.Subscription),
 	}
 }
 

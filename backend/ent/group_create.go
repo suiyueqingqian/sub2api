@@ -189,6 +189,20 @@ func (_c *GroupCreate) SetNillableStatus(v *string) *GroupCreate {
 	return _c
 }
 
+// SetDuplicateOperationID sets the "duplicate_operation_id" field.
+func (_c *GroupCreate) SetDuplicateOperationID(v string) *GroupCreate {
+	_c.mutation.SetDuplicateOperationID(v)
+	return _c
+}
+
+// SetNillableDuplicateOperationID sets the "duplicate_operation_id" field if the given value is not nil.
+func (_c *GroupCreate) SetNillableDuplicateOperationID(v *string) *GroupCreate {
+	if v != nil {
+		_c.SetDuplicateOperationID(*v)
+	}
+	return _c
+}
+
 // SetPlatform sets the "platform" field.
 func (_c *GroupCreate) SetPlatform(v string) *GroupCreate {
 	_c.mutation.SetPlatform(v)
@@ -399,6 +413,90 @@ func (_c *GroupCreate) SetNillableBatchImageHoldMultiplier(v *float64) *GroupCre
 	return _c
 }
 
+// SetVideoRateIndependent sets the "video_rate_independent" field.
+func (_c *GroupCreate) SetVideoRateIndependent(v bool) *GroupCreate {
+	_c.mutation.SetVideoRateIndependent(v)
+	return _c
+}
+
+// SetNillableVideoRateIndependent sets the "video_rate_independent" field if the given value is not nil.
+func (_c *GroupCreate) SetNillableVideoRateIndependent(v *bool) *GroupCreate {
+	if v != nil {
+		_c.SetVideoRateIndependent(*v)
+	}
+	return _c
+}
+
+// SetVideoRateMultiplier sets the "video_rate_multiplier" field.
+func (_c *GroupCreate) SetVideoRateMultiplier(v float64) *GroupCreate {
+	_c.mutation.SetVideoRateMultiplier(v)
+	return _c
+}
+
+// SetNillableVideoRateMultiplier sets the "video_rate_multiplier" field if the given value is not nil.
+func (_c *GroupCreate) SetNillableVideoRateMultiplier(v *float64) *GroupCreate {
+	if v != nil {
+		_c.SetVideoRateMultiplier(*v)
+	}
+	return _c
+}
+
+// SetVideoPrice480p sets the "video_price_480p" field.
+func (_c *GroupCreate) SetVideoPrice480p(v float64) *GroupCreate {
+	_c.mutation.SetVideoPrice480p(v)
+	return _c
+}
+
+// SetNillableVideoPrice480p sets the "video_price_480p" field if the given value is not nil.
+func (_c *GroupCreate) SetNillableVideoPrice480p(v *float64) *GroupCreate {
+	if v != nil {
+		_c.SetVideoPrice480p(*v)
+	}
+	return _c
+}
+
+// SetVideoPrice720p sets the "video_price_720p" field.
+func (_c *GroupCreate) SetVideoPrice720p(v float64) *GroupCreate {
+	_c.mutation.SetVideoPrice720p(v)
+	return _c
+}
+
+// SetNillableVideoPrice720p sets the "video_price_720p" field if the given value is not nil.
+func (_c *GroupCreate) SetNillableVideoPrice720p(v *float64) *GroupCreate {
+	if v != nil {
+		_c.SetVideoPrice720p(*v)
+	}
+	return _c
+}
+
+// SetVideoPrice1080p sets the "video_price_1080p" field.
+func (_c *GroupCreate) SetVideoPrice1080p(v float64) *GroupCreate {
+	_c.mutation.SetVideoPrice1080p(v)
+	return _c
+}
+
+// SetNillableVideoPrice1080p sets the "video_price_1080p" field if the given value is not nil.
+func (_c *GroupCreate) SetNillableVideoPrice1080p(v *float64) *GroupCreate {
+	if v != nil {
+		_c.SetVideoPrice1080p(*v)
+	}
+	return _c
+}
+
+// SetWebSearchPricePerCall sets the "web_search_price_per_call" field.
+func (_c *GroupCreate) SetWebSearchPricePerCall(v float64) *GroupCreate {
+	_c.mutation.SetWebSearchPricePerCall(v)
+	return _c
+}
+
+// SetNillableWebSearchPricePerCall sets the "web_search_price_per_call" field if the given value is not nil.
+func (_c *GroupCreate) SetNillableWebSearchPricePerCall(v *float64) *GroupCreate {
+	if v != nil {
+		_c.SetWebSearchPricePerCall(*v)
+	}
+	return _c
+}
+
 // SetClaudeCodeOnly sets the "claude_code_only" field.
 func (_c *GroupCreate) SetClaudeCodeOnly(v bool) *GroupCreate {
 	_c.mutation.SetClaudeCodeOnly(v)
@@ -590,6 +688,26 @@ func (_c *GroupCreate) SetNillableRpmLimit(v *int) *GroupCreate {
 	if v != nil {
 		_c.SetRpmLimit(*v)
 	}
+	return _c
+}
+
+// SetMaxReasoningEffort sets the "max_reasoning_effort" field.
+func (_c *GroupCreate) SetMaxReasoningEffort(v string) *GroupCreate {
+	_c.mutation.SetMaxReasoningEffort(v)
+	return _c
+}
+
+// SetNillableMaxReasoningEffort sets the "max_reasoning_effort" field if the given value is not nil.
+func (_c *GroupCreate) SetNillableMaxReasoningEffort(v *string) *GroupCreate {
+	if v != nil {
+		_c.SetMaxReasoningEffort(*v)
+	}
+	return _c
+}
+
+// SetReasoningEffortMappings sets the "reasoning_effort_mappings" field.
+func (_c *GroupCreate) SetReasoningEffortMappings(v []domain.ReasoningEffortMapping) *GroupCreate {
+	_c.mutation.SetReasoningEffortMappings(v)
 	return _c
 }
 
@@ -798,6 +916,14 @@ func (_c *GroupCreate) defaults() error {
 		v := group.DefaultBatchImageHoldMultiplier
 		_c.mutation.SetBatchImageHoldMultiplier(v)
 	}
+	if _, ok := _c.mutation.VideoRateIndependent(); !ok {
+		v := group.DefaultVideoRateIndependent
+		_c.mutation.SetVideoRateIndependent(v)
+	}
+	if _, ok := _c.mutation.VideoRateMultiplier(); !ok {
+		v := group.DefaultVideoRateMultiplier
+		_c.mutation.SetVideoRateMultiplier(v)
+	}
 	if _, ok := _c.mutation.ClaudeCodeOnly(); !ok {
 		v := group.DefaultClaudeCodeOnly
 		_c.mutation.SetClaudeCodeOnly(v)
@@ -845,6 +971,14 @@ func (_c *GroupCreate) defaults() error {
 	if _, ok := _c.mutation.RpmLimit(); !ok {
 		v := group.DefaultRpmLimit
 		_c.mutation.SetRpmLimit(v)
+	}
+	if _, ok := _c.mutation.MaxReasoningEffort(); !ok {
+		v := group.DefaultMaxReasoningEffort
+		_c.mutation.SetMaxReasoningEffort(v)
+	}
+	if _, ok := _c.mutation.ReasoningEffortMappings(); !ok {
+		v := group.DefaultReasoningEffortMappings
+		_c.mutation.SetReasoningEffortMappings(v)
 	}
 	return nil
 }
@@ -901,6 +1035,11 @@ func (_c *GroupCreate) check() error {
 			return &ValidationError{Name: "status", err: fmt.Errorf(`ent: validator failed for field "Group.status": %w`, err)}
 		}
 	}
+	if v, ok := _c.mutation.DuplicateOperationID(); ok {
+		if err := group.DuplicateOperationIDValidator(v); err != nil {
+			return &ValidationError{Name: "duplicate_operation_id", err: fmt.Errorf(`ent: validator failed for field "Group.duplicate_operation_id": %w`, err)}
+		}
+	}
 	if _, ok := _c.mutation.Platform(); !ok {
 		return &ValidationError{Name: "platform", err: errors.New(`ent: missing required field "Group.platform"`)}
 	}
@@ -937,6 +1076,12 @@ func (_c *GroupCreate) check() error {
 	}
 	if _, ok := _c.mutation.BatchImageHoldMultiplier(); !ok {
 		return &ValidationError{Name: "batch_image_hold_multiplier", err: errors.New(`ent: missing required field "Group.batch_image_hold_multiplier"`)}
+	}
+	if _, ok := _c.mutation.VideoRateIndependent(); !ok {
+		return &ValidationError{Name: "video_rate_independent", err: errors.New(`ent: missing required field "Group.video_rate_independent"`)}
+	}
+	if _, ok := _c.mutation.VideoRateMultiplier(); !ok {
+		return &ValidationError{Name: "video_rate_multiplier", err: errors.New(`ent: missing required field "Group.video_rate_multiplier"`)}
 	}
 	if _, ok := _c.mutation.ClaudeCodeOnly(); !ok {
 		return &ValidationError{Name: "claude_code_only", err: errors.New(`ent: missing required field "Group.claude_code_only"`)}
@@ -978,6 +1123,17 @@ func (_c *GroupCreate) check() error {
 	}
 	if _, ok := _c.mutation.RpmLimit(); !ok {
 		return &ValidationError{Name: "rpm_limit", err: errors.New(`ent: missing required field "Group.rpm_limit"`)}
+	}
+	if _, ok := _c.mutation.MaxReasoningEffort(); !ok {
+		return &ValidationError{Name: "max_reasoning_effort", err: errors.New(`ent: missing required field "Group.max_reasoning_effort"`)}
+	}
+	if v, ok := _c.mutation.MaxReasoningEffort(); ok {
+		if err := group.MaxReasoningEffortValidator(v); err != nil {
+			return &ValidationError{Name: "max_reasoning_effort", err: fmt.Errorf(`ent: validator failed for field "Group.max_reasoning_effort": %w`, err)}
+		}
+	}
+	if _, ok := _c.mutation.ReasoningEffortMappings(); !ok {
+		return &ValidationError{Name: "reasoning_effort_mappings", err: errors.New(`ent: missing required field "Group.reasoning_effort_mappings"`)}
 	}
 	return nil
 }
@@ -1054,6 +1210,10 @@ func (_c *GroupCreate) createSpec() (*Group, *sqlgraph.CreateSpec) {
 		_spec.SetField(group.FieldStatus, field.TypeString, value)
 		_node.Status = value
 	}
+	if value, ok := _c.mutation.DuplicateOperationID(); ok {
+		_spec.SetField(group.FieldDuplicateOperationID, field.TypeString, value)
+		_node.DuplicateOperationID = &value
+	}
 	if value, ok := _c.mutation.Platform(); ok {
 		_spec.SetField(group.FieldPlatform, field.TypeString, value)
 		_node.Platform = value
@@ -1114,6 +1274,30 @@ func (_c *GroupCreate) createSpec() (*Group, *sqlgraph.CreateSpec) {
 		_spec.SetField(group.FieldBatchImageHoldMultiplier, field.TypeFloat64, value)
 		_node.BatchImageHoldMultiplier = value
 	}
+	if value, ok := _c.mutation.VideoRateIndependent(); ok {
+		_spec.SetField(group.FieldVideoRateIndependent, field.TypeBool, value)
+		_node.VideoRateIndependent = value
+	}
+	if value, ok := _c.mutation.VideoRateMultiplier(); ok {
+		_spec.SetField(group.FieldVideoRateMultiplier, field.TypeFloat64, value)
+		_node.VideoRateMultiplier = value
+	}
+	if value, ok := _c.mutation.VideoPrice480p(); ok {
+		_spec.SetField(group.FieldVideoPrice480p, field.TypeFloat64, value)
+		_node.VideoPrice480p = &value
+	}
+	if value, ok := _c.mutation.VideoPrice720p(); ok {
+		_spec.SetField(group.FieldVideoPrice720p, field.TypeFloat64, value)
+		_node.VideoPrice720p = &value
+	}
+	if value, ok := _c.mutation.VideoPrice1080p(); ok {
+		_spec.SetField(group.FieldVideoPrice1080p, field.TypeFloat64, value)
+		_node.VideoPrice1080p = &value
+	}
+	if value, ok := _c.mutation.WebSearchPricePerCall(); ok {
+		_spec.SetField(group.FieldWebSearchPricePerCall, field.TypeFloat64, value)
+		_node.WebSearchPricePerCall = &value
+	}
 	if value, ok := _c.mutation.ClaudeCodeOnly(); ok {
 		_spec.SetField(group.FieldClaudeCodeOnly, field.TypeBool, value)
 		_node.ClaudeCodeOnly = value
@@ -1173,6 +1357,14 @@ func (_c *GroupCreate) createSpec() (*Group, *sqlgraph.CreateSpec) {
 	if value, ok := _c.mutation.RpmLimit(); ok {
 		_spec.SetField(group.FieldRpmLimit, field.TypeInt, value)
 		_node.RpmLimit = value
+	}
+	if value, ok := _c.mutation.MaxReasoningEffort(); ok {
+		_spec.SetField(group.FieldMaxReasoningEffort, field.TypeString, value)
+		_node.MaxReasoningEffort = value
+	}
+	if value, ok := _c.mutation.ReasoningEffortMappings(); ok {
+		_spec.SetField(group.FieldReasoningEffortMappings, field.TypeJSON, value)
+		_node.ReasoningEffortMappings = value
 	}
 	if nodes := _c.mutation.APIKeysIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
@@ -1762,6 +1954,132 @@ func (u *GroupUpsert) AddBatchImageHoldMultiplier(v float64) *GroupUpsert {
 	return u
 }
 
+// SetVideoRateIndependent sets the "video_rate_independent" field.
+func (u *GroupUpsert) SetVideoRateIndependent(v bool) *GroupUpsert {
+	u.Set(group.FieldVideoRateIndependent, v)
+	return u
+}
+
+// UpdateVideoRateIndependent sets the "video_rate_independent" field to the value that was provided on create.
+func (u *GroupUpsert) UpdateVideoRateIndependent() *GroupUpsert {
+	u.SetExcluded(group.FieldVideoRateIndependent)
+	return u
+}
+
+// SetVideoRateMultiplier sets the "video_rate_multiplier" field.
+func (u *GroupUpsert) SetVideoRateMultiplier(v float64) *GroupUpsert {
+	u.Set(group.FieldVideoRateMultiplier, v)
+	return u
+}
+
+// UpdateVideoRateMultiplier sets the "video_rate_multiplier" field to the value that was provided on create.
+func (u *GroupUpsert) UpdateVideoRateMultiplier() *GroupUpsert {
+	u.SetExcluded(group.FieldVideoRateMultiplier)
+	return u
+}
+
+// AddVideoRateMultiplier adds v to the "video_rate_multiplier" field.
+func (u *GroupUpsert) AddVideoRateMultiplier(v float64) *GroupUpsert {
+	u.Add(group.FieldVideoRateMultiplier, v)
+	return u
+}
+
+// SetVideoPrice480p sets the "video_price_480p" field.
+func (u *GroupUpsert) SetVideoPrice480p(v float64) *GroupUpsert {
+	u.Set(group.FieldVideoPrice480p, v)
+	return u
+}
+
+// UpdateVideoPrice480p sets the "video_price_480p" field to the value that was provided on create.
+func (u *GroupUpsert) UpdateVideoPrice480p() *GroupUpsert {
+	u.SetExcluded(group.FieldVideoPrice480p)
+	return u
+}
+
+// AddVideoPrice480p adds v to the "video_price_480p" field.
+func (u *GroupUpsert) AddVideoPrice480p(v float64) *GroupUpsert {
+	u.Add(group.FieldVideoPrice480p, v)
+	return u
+}
+
+// ClearVideoPrice480p clears the value of the "video_price_480p" field.
+func (u *GroupUpsert) ClearVideoPrice480p() *GroupUpsert {
+	u.SetNull(group.FieldVideoPrice480p)
+	return u
+}
+
+// SetVideoPrice720p sets the "video_price_720p" field.
+func (u *GroupUpsert) SetVideoPrice720p(v float64) *GroupUpsert {
+	u.Set(group.FieldVideoPrice720p, v)
+	return u
+}
+
+// UpdateVideoPrice720p sets the "video_price_720p" field to the value that was provided on create.
+func (u *GroupUpsert) UpdateVideoPrice720p() *GroupUpsert {
+	u.SetExcluded(group.FieldVideoPrice720p)
+	return u
+}
+
+// AddVideoPrice720p adds v to the "video_price_720p" field.
+func (u *GroupUpsert) AddVideoPrice720p(v float64) *GroupUpsert {
+	u.Add(group.FieldVideoPrice720p, v)
+	return u
+}
+
+// ClearVideoPrice720p clears the value of the "video_price_720p" field.
+func (u *GroupUpsert) ClearVideoPrice720p() *GroupUpsert {
+	u.SetNull(group.FieldVideoPrice720p)
+	return u
+}
+
+// SetVideoPrice1080p sets the "video_price_1080p" field.
+func (u *GroupUpsert) SetVideoPrice1080p(v float64) *GroupUpsert {
+	u.Set(group.FieldVideoPrice1080p, v)
+	return u
+}
+
+// UpdateVideoPrice1080p sets the "video_price_1080p" field to the value that was provided on create.
+func (u *GroupUpsert) UpdateVideoPrice1080p() *GroupUpsert {
+	u.SetExcluded(group.FieldVideoPrice1080p)
+	return u
+}
+
+// AddVideoPrice1080p adds v to the "video_price_1080p" field.
+func (u *GroupUpsert) AddVideoPrice1080p(v float64) *GroupUpsert {
+	u.Add(group.FieldVideoPrice1080p, v)
+	return u
+}
+
+// ClearVideoPrice1080p clears the value of the "video_price_1080p" field.
+func (u *GroupUpsert) ClearVideoPrice1080p() *GroupUpsert {
+	u.SetNull(group.FieldVideoPrice1080p)
+	return u
+}
+
+// SetWebSearchPricePerCall sets the "web_search_price_per_call" field.
+func (u *GroupUpsert) SetWebSearchPricePerCall(v float64) *GroupUpsert {
+	u.Set(group.FieldWebSearchPricePerCall, v)
+	return u
+}
+
+// UpdateWebSearchPricePerCall sets the "web_search_price_per_call" field to the value that was provided on create.
+func (u *GroupUpsert) UpdateWebSearchPricePerCall() *GroupUpsert {
+	u.SetExcluded(group.FieldWebSearchPricePerCall)
+	return u
+}
+
+// AddWebSearchPricePerCall adds v to the "web_search_price_per_call" field.
+func (u *GroupUpsert) AddWebSearchPricePerCall(v float64) *GroupUpsert {
+	u.Add(group.FieldWebSearchPricePerCall, v)
+	return u
+}
+
+// ClearWebSearchPricePerCall clears the value of the "web_search_price_per_call" field.
+func (u *GroupUpsert) ClearWebSearchPricePerCall() *GroupUpsert {
+	u.SetNull(group.FieldWebSearchPricePerCall)
+	return u
+}
+
 // SetClaudeCodeOnly sets the "claude_code_only" field.
 func (u *GroupUpsert) SetClaudeCodeOnly(v bool) *GroupUpsert {
 	u.Set(group.FieldClaudeCodeOnly, v)
@@ -1984,6 +2302,30 @@ func (u *GroupUpsert) AddRpmLimit(v int) *GroupUpsert {
 	return u
 }
 
+// SetMaxReasoningEffort sets the "max_reasoning_effort" field.
+func (u *GroupUpsert) SetMaxReasoningEffort(v string) *GroupUpsert {
+	u.Set(group.FieldMaxReasoningEffort, v)
+	return u
+}
+
+// UpdateMaxReasoningEffort sets the "max_reasoning_effort" field to the value that was provided on create.
+func (u *GroupUpsert) UpdateMaxReasoningEffort() *GroupUpsert {
+	u.SetExcluded(group.FieldMaxReasoningEffort)
+	return u
+}
+
+// SetReasoningEffortMappings sets the "reasoning_effort_mappings" field.
+func (u *GroupUpsert) SetReasoningEffortMappings(v []domain.ReasoningEffortMapping) *GroupUpsert {
+	u.Set(group.FieldReasoningEffortMappings, v)
+	return u
+}
+
+// UpdateReasoningEffortMappings sets the "reasoning_effort_mappings" field to the value that was provided on create.
+func (u *GroupUpsert) UpdateReasoningEffortMappings() *GroupUpsert {
+	u.SetExcluded(group.FieldReasoningEffortMappings)
+	return u
+}
+
 // UpdateNewValues updates the mutable fields using the new values that were set on create.
 // Using this option is equivalent to using:
 //
@@ -1997,6 +2339,9 @@ func (u *GroupUpsertOne) UpdateNewValues() *GroupUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
 		if _, exists := u.create.mutation.CreatedAt(); exists {
 			s.SetIgnore(group.FieldCreatedAt)
+		}
+		if _, exists := u.create.mutation.DuplicateOperationID(); exists {
+			s.SetIgnore(group.FieldDuplicateOperationID)
 		}
 	}))
 	return u
@@ -2533,6 +2878,153 @@ func (u *GroupUpsertOne) UpdateBatchImageHoldMultiplier() *GroupUpsertOne {
 	})
 }
 
+// SetVideoRateIndependent sets the "video_rate_independent" field.
+func (u *GroupUpsertOne) SetVideoRateIndependent(v bool) *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetVideoRateIndependent(v)
+	})
+}
+
+// UpdateVideoRateIndependent sets the "video_rate_independent" field to the value that was provided on create.
+func (u *GroupUpsertOne) UpdateVideoRateIndependent() *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateVideoRateIndependent()
+	})
+}
+
+// SetVideoRateMultiplier sets the "video_rate_multiplier" field.
+func (u *GroupUpsertOne) SetVideoRateMultiplier(v float64) *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetVideoRateMultiplier(v)
+	})
+}
+
+// AddVideoRateMultiplier adds v to the "video_rate_multiplier" field.
+func (u *GroupUpsertOne) AddVideoRateMultiplier(v float64) *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.AddVideoRateMultiplier(v)
+	})
+}
+
+// UpdateVideoRateMultiplier sets the "video_rate_multiplier" field to the value that was provided on create.
+func (u *GroupUpsertOne) UpdateVideoRateMultiplier() *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateVideoRateMultiplier()
+	})
+}
+
+// SetVideoPrice480p sets the "video_price_480p" field.
+func (u *GroupUpsertOne) SetVideoPrice480p(v float64) *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetVideoPrice480p(v)
+	})
+}
+
+// AddVideoPrice480p adds v to the "video_price_480p" field.
+func (u *GroupUpsertOne) AddVideoPrice480p(v float64) *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.AddVideoPrice480p(v)
+	})
+}
+
+// UpdateVideoPrice480p sets the "video_price_480p" field to the value that was provided on create.
+func (u *GroupUpsertOne) UpdateVideoPrice480p() *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateVideoPrice480p()
+	})
+}
+
+// ClearVideoPrice480p clears the value of the "video_price_480p" field.
+func (u *GroupUpsertOne) ClearVideoPrice480p() *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.ClearVideoPrice480p()
+	})
+}
+
+// SetVideoPrice720p sets the "video_price_720p" field.
+func (u *GroupUpsertOne) SetVideoPrice720p(v float64) *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetVideoPrice720p(v)
+	})
+}
+
+// AddVideoPrice720p adds v to the "video_price_720p" field.
+func (u *GroupUpsertOne) AddVideoPrice720p(v float64) *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.AddVideoPrice720p(v)
+	})
+}
+
+// UpdateVideoPrice720p sets the "video_price_720p" field to the value that was provided on create.
+func (u *GroupUpsertOne) UpdateVideoPrice720p() *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateVideoPrice720p()
+	})
+}
+
+// ClearVideoPrice720p clears the value of the "video_price_720p" field.
+func (u *GroupUpsertOne) ClearVideoPrice720p() *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.ClearVideoPrice720p()
+	})
+}
+
+// SetVideoPrice1080p sets the "video_price_1080p" field.
+func (u *GroupUpsertOne) SetVideoPrice1080p(v float64) *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetVideoPrice1080p(v)
+	})
+}
+
+// AddVideoPrice1080p adds v to the "video_price_1080p" field.
+func (u *GroupUpsertOne) AddVideoPrice1080p(v float64) *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.AddVideoPrice1080p(v)
+	})
+}
+
+// UpdateVideoPrice1080p sets the "video_price_1080p" field to the value that was provided on create.
+func (u *GroupUpsertOne) UpdateVideoPrice1080p() *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateVideoPrice1080p()
+	})
+}
+
+// ClearVideoPrice1080p clears the value of the "video_price_1080p" field.
+func (u *GroupUpsertOne) ClearVideoPrice1080p() *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.ClearVideoPrice1080p()
+	})
+}
+
+// SetWebSearchPricePerCall sets the "web_search_price_per_call" field.
+func (u *GroupUpsertOne) SetWebSearchPricePerCall(v float64) *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetWebSearchPricePerCall(v)
+	})
+}
+
+// AddWebSearchPricePerCall adds v to the "web_search_price_per_call" field.
+func (u *GroupUpsertOne) AddWebSearchPricePerCall(v float64) *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.AddWebSearchPricePerCall(v)
+	})
+}
+
+// UpdateWebSearchPricePerCall sets the "web_search_price_per_call" field to the value that was provided on create.
+func (u *GroupUpsertOne) UpdateWebSearchPricePerCall() *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateWebSearchPricePerCall()
+	})
+}
+
+// ClearWebSearchPricePerCall clears the value of the "web_search_price_per_call" field.
+func (u *GroupUpsertOne) ClearWebSearchPricePerCall() *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.ClearWebSearchPricePerCall()
+	})
+}
+
 // SetClaudeCodeOnly sets the "claude_code_only" field.
 func (u *GroupUpsertOne) SetClaudeCodeOnly(v bool) *GroupUpsertOne {
 	return u.Update(func(s *GroupUpsert) {
@@ -2792,6 +3284,34 @@ func (u *GroupUpsertOne) UpdateRpmLimit() *GroupUpsertOne {
 	})
 }
 
+// SetMaxReasoningEffort sets the "max_reasoning_effort" field.
+func (u *GroupUpsertOne) SetMaxReasoningEffort(v string) *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetMaxReasoningEffort(v)
+	})
+}
+
+// UpdateMaxReasoningEffort sets the "max_reasoning_effort" field to the value that was provided on create.
+func (u *GroupUpsertOne) UpdateMaxReasoningEffort() *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateMaxReasoningEffort()
+	})
+}
+
+// SetReasoningEffortMappings sets the "reasoning_effort_mappings" field.
+func (u *GroupUpsertOne) SetReasoningEffortMappings(v []domain.ReasoningEffortMapping) *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetReasoningEffortMappings(v)
+	})
+}
+
+// UpdateReasoningEffortMappings sets the "reasoning_effort_mappings" field to the value that was provided on create.
+func (u *GroupUpsertOne) UpdateReasoningEffortMappings() *GroupUpsertOne {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateReasoningEffortMappings()
+	})
+}
+
 // Exec executes the query.
 func (u *GroupUpsertOne) Exec(ctx context.Context) error {
 	if len(u.create.conflict) == 0 {
@@ -2970,6 +3490,9 @@ func (u *GroupUpsertBulk) UpdateNewValues() *GroupUpsertBulk {
 		for _, b := range u.create.builders {
 			if _, exists := b.mutation.CreatedAt(); exists {
 				s.SetIgnore(group.FieldCreatedAt)
+			}
+			if _, exists := b.mutation.DuplicateOperationID(); exists {
+				s.SetIgnore(group.FieldDuplicateOperationID)
 			}
 		}
 	}))
@@ -3507,6 +4030,153 @@ func (u *GroupUpsertBulk) UpdateBatchImageHoldMultiplier() *GroupUpsertBulk {
 	})
 }
 
+// SetVideoRateIndependent sets the "video_rate_independent" field.
+func (u *GroupUpsertBulk) SetVideoRateIndependent(v bool) *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetVideoRateIndependent(v)
+	})
+}
+
+// UpdateVideoRateIndependent sets the "video_rate_independent" field to the value that was provided on create.
+func (u *GroupUpsertBulk) UpdateVideoRateIndependent() *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateVideoRateIndependent()
+	})
+}
+
+// SetVideoRateMultiplier sets the "video_rate_multiplier" field.
+func (u *GroupUpsertBulk) SetVideoRateMultiplier(v float64) *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetVideoRateMultiplier(v)
+	})
+}
+
+// AddVideoRateMultiplier adds v to the "video_rate_multiplier" field.
+func (u *GroupUpsertBulk) AddVideoRateMultiplier(v float64) *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.AddVideoRateMultiplier(v)
+	})
+}
+
+// UpdateVideoRateMultiplier sets the "video_rate_multiplier" field to the value that was provided on create.
+func (u *GroupUpsertBulk) UpdateVideoRateMultiplier() *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateVideoRateMultiplier()
+	})
+}
+
+// SetVideoPrice480p sets the "video_price_480p" field.
+func (u *GroupUpsertBulk) SetVideoPrice480p(v float64) *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetVideoPrice480p(v)
+	})
+}
+
+// AddVideoPrice480p adds v to the "video_price_480p" field.
+func (u *GroupUpsertBulk) AddVideoPrice480p(v float64) *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.AddVideoPrice480p(v)
+	})
+}
+
+// UpdateVideoPrice480p sets the "video_price_480p" field to the value that was provided on create.
+func (u *GroupUpsertBulk) UpdateVideoPrice480p() *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateVideoPrice480p()
+	})
+}
+
+// ClearVideoPrice480p clears the value of the "video_price_480p" field.
+func (u *GroupUpsertBulk) ClearVideoPrice480p() *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.ClearVideoPrice480p()
+	})
+}
+
+// SetVideoPrice720p sets the "video_price_720p" field.
+func (u *GroupUpsertBulk) SetVideoPrice720p(v float64) *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetVideoPrice720p(v)
+	})
+}
+
+// AddVideoPrice720p adds v to the "video_price_720p" field.
+func (u *GroupUpsertBulk) AddVideoPrice720p(v float64) *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.AddVideoPrice720p(v)
+	})
+}
+
+// UpdateVideoPrice720p sets the "video_price_720p" field to the value that was provided on create.
+func (u *GroupUpsertBulk) UpdateVideoPrice720p() *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateVideoPrice720p()
+	})
+}
+
+// ClearVideoPrice720p clears the value of the "video_price_720p" field.
+func (u *GroupUpsertBulk) ClearVideoPrice720p() *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.ClearVideoPrice720p()
+	})
+}
+
+// SetVideoPrice1080p sets the "video_price_1080p" field.
+func (u *GroupUpsertBulk) SetVideoPrice1080p(v float64) *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetVideoPrice1080p(v)
+	})
+}
+
+// AddVideoPrice1080p adds v to the "video_price_1080p" field.
+func (u *GroupUpsertBulk) AddVideoPrice1080p(v float64) *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.AddVideoPrice1080p(v)
+	})
+}
+
+// UpdateVideoPrice1080p sets the "video_price_1080p" field to the value that was provided on create.
+func (u *GroupUpsertBulk) UpdateVideoPrice1080p() *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateVideoPrice1080p()
+	})
+}
+
+// ClearVideoPrice1080p clears the value of the "video_price_1080p" field.
+func (u *GroupUpsertBulk) ClearVideoPrice1080p() *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.ClearVideoPrice1080p()
+	})
+}
+
+// SetWebSearchPricePerCall sets the "web_search_price_per_call" field.
+func (u *GroupUpsertBulk) SetWebSearchPricePerCall(v float64) *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetWebSearchPricePerCall(v)
+	})
+}
+
+// AddWebSearchPricePerCall adds v to the "web_search_price_per_call" field.
+func (u *GroupUpsertBulk) AddWebSearchPricePerCall(v float64) *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.AddWebSearchPricePerCall(v)
+	})
+}
+
+// UpdateWebSearchPricePerCall sets the "web_search_price_per_call" field to the value that was provided on create.
+func (u *GroupUpsertBulk) UpdateWebSearchPricePerCall() *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateWebSearchPricePerCall()
+	})
+}
+
+// ClearWebSearchPricePerCall clears the value of the "web_search_price_per_call" field.
+func (u *GroupUpsertBulk) ClearWebSearchPricePerCall() *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.ClearWebSearchPricePerCall()
+	})
+}
+
 // SetClaudeCodeOnly sets the "claude_code_only" field.
 func (u *GroupUpsertBulk) SetClaudeCodeOnly(v bool) *GroupUpsertBulk {
 	return u.Update(func(s *GroupUpsert) {
@@ -3763,6 +4433,34 @@ func (u *GroupUpsertBulk) AddRpmLimit(v int) *GroupUpsertBulk {
 func (u *GroupUpsertBulk) UpdateRpmLimit() *GroupUpsertBulk {
 	return u.Update(func(s *GroupUpsert) {
 		s.UpdateRpmLimit()
+	})
+}
+
+// SetMaxReasoningEffort sets the "max_reasoning_effort" field.
+func (u *GroupUpsertBulk) SetMaxReasoningEffort(v string) *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetMaxReasoningEffort(v)
+	})
+}
+
+// UpdateMaxReasoningEffort sets the "max_reasoning_effort" field to the value that was provided on create.
+func (u *GroupUpsertBulk) UpdateMaxReasoningEffort() *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateMaxReasoningEffort()
+	})
+}
+
+// SetReasoningEffortMappings sets the "reasoning_effort_mappings" field.
+func (u *GroupUpsertBulk) SetReasoningEffortMappings(v []domain.ReasoningEffortMapping) *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.SetReasoningEffortMappings(v)
+	})
+}
+
+// UpdateReasoningEffortMappings sets the "reasoning_effort_mappings" field to the value that was provided on create.
+func (u *GroupUpsertBulk) UpdateReasoningEffortMappings() *GroupUpsertBulk {
+	return u.Update(func(s *GroupUpsert) {
+		s.UpdateReasoningEffortMappings()
 	})
 }
 

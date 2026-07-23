@@ -40,6 +40,8 @@ const (
 	FieldIsExclusive = "is_exclusive"
 	// FieldStatus holds the string denoting the status field in the database.
 	FieldStatus = "status"
+	// FieldDuplicateOperationID holds the string denoting the duplicate_operation_id field in the database.
+	FieldDuplicateOperationID = "duplicate_operation_id"
 	// FieldPlatform holds the string denoting the platform field in the database.
 	FieldPlatform = "platform"
 	// FieldSubscriptionType holds the string denoting the subscription_type field in the database.
@@ -70,6 +72,18 @@ const (
 	FieldBatchImageDiscountMultiplier = "batch_image_discount_multiplier"
 	// FieldBatchImageHoldMultiplier holds the string denoting the batch_image_hold_multiplier field in the database.
 	FieldBatchImageHoldMultiplier = "batch_image_hold_multiplier"
+	// FieldVideoRateIndependent holds the string denoting the video_rate_independent field in the database.
+	FieldVideoRateIndependent = "video_rate_independent"
+	// FieldVideoRateMultiplier holds the string denoting the video_rate_multiplier field in the database.
+	FieldVideoRateMultiplier = "video_rate_multiplier"
+	// FieldVideoPrice480p holds the string denoting the video_price_480p field in the database.
+	FieldVideoPrice480p = "video_price_480p"
+	// FieldVideoPrice720p holds the string denoting the video_price_720p field in the database.
+	FieldVideoPrice720p = "video_price_720p"
+	// FieldVideoPrice1080p holds the string denoting the video_price_1080p field in the database.
+	FieldVideoPrice1080p = "video_price_1080p"
+	// FieldWebSearchPricePerCall holds the string denoting the web_search_price_per_call field in the database.
+	FieldWebSearchPricePerCall = "web_search_price_per_call"
 	// FieldClaudeCodeOnly holds the string denoting the claude_code_only field in the database.
 	FieldClaudeCodeOnly = "claude_code_only"
 	// FieldFallbackGroupID holds the string denoting the fallback_group_id field in the database.
@@ -100,6 +114,10 @@ const (
 	FieldModelsListConfig = "models_list_config"
 	// FieldRpmLimit holds the string denoting the rpm_limit field in the database.
 	FieldRpmLimit = "rpm_limit"
+	// FieldMaxReasoningEffort holds the string denoting the max_reasoning_effort field in the database.
+	FieldMaxReasoningEffort = "max_reasoning_effort"
+	// FieldReasoningEffortMappings holds the string denoting the reasoning_effort_mappings field in the database.
+	FieldReasoningEffortMappings = "reasoning_effort_mappings"
 	// EdgeAPIKeys holds the string denoting the api_keys edge name in mutations.
 	EdgeAPIKeys = "api_keys"
 	// EdgeRedeemCodes holds the string denoting the redeem_codes edge name in mutations.
@@ -187,6 +205,7 @@ var Columns = []string{
 	FieldPeakRateMultiplier,
 	FieldIsExclusive,
 	FieldStatus,
+	FieldDuplicateOperationID,
 	FieldPlatform,
 	FieldSubscriptionType,
 	FieldDailyLimitUsd,
@@ -202,6 +221,12 @@ var Columns = []string{
 	FieldImagePrice4k,
 	FieldBatchImageDiscountMultiplier,
 	FieldBatchImageHoldMultiplier,
+	FieldVideoRateIndependent,
+	FieldVideoRateMultiplier,
+	FieldVideoPrice480p,
+	FieldVideoPrice720p,
+	FieldVideoPrice1080p,
+	FieldWebSearchPricePerCall,
 	FieldClaudeCodeOnly,
 	FieldFallbackGroupID,
 	FieldFallbackGroupIDOnInvalidRequest,
@@ -217,6 +242,8 @@ var Columns = []string{
 	FieldMessagesDispatchModelConfig,
 	FieldModelsListConfig,
 	FieldRpmLimit,
+	FieldMaxReasoningEffort,
+	FieldReasoningEffortMappings,
 }
 
 var (
@@ -274,6 +301,8 @@ var (
 	DefaultStatus string
 	// StatusValidator is a validator for the "status" field. It is called by the builders before save.
 	StatusValidator func(string) error
+	// DuplicateOperationIDValidator is a validator for the "duplicate_operation_id" field. It is called by the builders before save.
+	DuplicateOperationIDValidator func(string) error
 	// DefaultPlatform holds the default value on creation for the "platform" field.
 	DefaultPlatform string
 	// PlatformValidator is a validator for the "platform" field. It is called by the builders before save.
@@ -296,6 +325,10 @@ var (
 	DefaultBatchImageDiscountMultiplier float64
 	// DefaultBatchImageHoldMultiplier holds the default value on creation for the "batch_image_hold_multiplier" field.
 	DefaultBatchImageHoldMultiplier float64
+	// DefaultVideoRateIndependent holds the default value on creation for the "video_rate_independent" field.
+	DefaultVideoRateIndependent bool
+	// DefaultVideoRateMultiplier holds the default value on creation for the "video_rate_multiplier" field.
+	DefaultVideoRateMultiplier float64
 	// DefaultClaudeCodeOnly holds the default value on creation for the "claude_code_only" field.
 	DefaultClaudeCodeOnly bool
 	// DefaultModelRoutingEnabled holds the default value on creation for the "model_routing_enabled" field.
@@ -322,6 +355,12 @@ var (
 	DefaultModelsListConfig domain.GroupModelsListConfig
 	// DefaultRpmLimit holds the default value on creation for the "rpm_limit" field.
 	DefaultRpmLimit int
+	// DefaultMaxReasoningEffort holds the default value on creation for the "max_reasoning_effort" field.
+	DefaultMaxReasoningEffort string
+	// MaxReasoningEffortValidator is a validator for the "max_reasoning_effort" field. It is called by the builders before save.
+	MaxReasoningEffortValidator func(string) error
+	// DefaultReasoningEffortMappings holds the default value on creation for the "reasoning_effort_mappings" field.
+	DefaultReasoningEffortMappings []domain.ReasoningEffortMapping
 )
 
 // OrderOption defines the ordering options for the Group queries.
@@ -390,6 +429,11 @@ func ByIsExclusive(opts ...sql.OrderTermOption) OrderOption {
 // ByStatus orders the results by the status field.
 func ByStatus(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldStatus, opts...).ToFunc()
+}
+
+// ByDuplicateOperationID orders the results by the duplicate_operation_id field.
+func ByDuplicateOperationID(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldDuplicateOperationID, opts...).ToFunc()
 }
 
 // ByPlatform orders the results by the platform field.
@@ -467,6 +511,36 @@ func ByBatchImageHoldMultiplier(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldBatchImageHoldMultiplier, opts...).ToFunc()
 }
 
+// ByVideoRateIndependent orders the results by the video_rate_independent field.
+func ByVideoRateIndependent(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldVideoRateIndependent, opts...).ToFunc()
+}
+
+// ByVideoRateMultiplier orders the results by the video_rate_multiplier field.
+func ByVideoRateMultiplier(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldVideoRateMultiplier, opts...).ToFunc()
+}
+
+// ByVideoPrice480p orders the results by the video_price_480p field.
+func ByVideoPrice480p(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldVideoPrice480p, opts...).ToFunc()
+}
+
+// ByVideoPrice720p orders the results by the video_price_720p field.
+func ByVideoPrice720p(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldVideoPrice720p, opts...).ToFunc()
+}
+
+// ByVideoPrice1080p orders the results by the video_price_1080p field.
+func ByVideoPrice1080p(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldVideoPrice1080p, opts...).ToFunc()
+}
+
+// ByWebSearchPricePerCall orders the results by the web_search_price_per_call field.
+func ByWebSearchPricePerCall(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldWebSearchPricePerCall, opts...).ToFunc()
+}
+
 // ByClaudeCodeOnly orders the results by the claude_code_only field.
 func ByClaudeCodeOnly(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldClaudeCodeOnly, opts...).ToFunc()
@@ -520,6 +594,11 @@ func ByDefaultMappedModel(opts ...sql.OrderTermOption) OrderOption {
 // ByRpmLimit orders the results by the rpm_limit field.
 func ByRpmLimit(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldRpmLimit, opts...).ToFunc()
+}
+
+// ByMaxReasoningEffort orders the results by the max_reasoning_effort field.
+func ByMaxReasoningEffort(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldMaxReasoningEffort, opts...).ToFunc()
 }
 
 // ByAPIKeysCount orders the results by api_keys count.
